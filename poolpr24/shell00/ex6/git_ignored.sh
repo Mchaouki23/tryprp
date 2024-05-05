@@ -1,0 +1,3 @@
+git log type f -o -i --exclude-standard
+or
+git ls-files...
