@@ -68,8 +68,8 @@ void    ft_putnbr_base(int nbr, char *base)
 
 int	main()
 {
-	int nbr = 12;
-	char s[] = "0123456789A(_DEF";
+	int nbr = 419;
+	char s[] = "0123456789AbCDEF";
 
 	ft_putnbr_base(nbr, s);
 }

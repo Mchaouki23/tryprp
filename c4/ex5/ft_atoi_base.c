@@ -1,27 +1,5 @@
 #include <stdio.h>
 
-int	ft_atoi(char *str)
-{
-	int i = 0;
-	int sign = 1;
-	int result = 0;
-
-	while((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	while(str[i] == '+' || str[i] == '-')
-	{
-		if(str[i] = '-')
-			sign *= -1;
-		i++;
-	}
-	while(str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
-}
-
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -32,13 +10,11 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-int	checkerror(char *base)
+int	checkerror(char *base, int x)
 {
 	int	i;
 	int	j;
-	int	x;
 	
-	x = ft_strlen(base);
 	i = 0;
 	if (base[0] == '\0' || x == 1)
 		return (0);
@@ -60,43 +36,53 @@ int	checkerror(char *base)
 
 int	ft_atoi_base(char *str, char *base)
 {
+	int len = ft_strlen(base);
+	int error = checkerror(base, len);
 	int i = 0;
-	int j = 0;
-	int nb = ft_atoi(str);
-	int error = checkerror(base);
 	int sign = 1;
-	
-	if(nb[0] == '-')
-		sign *= -1;
+	int result = 0;
+	int j;
+	int found = 0;//check for invaled characters
 	if(error == 1)
-	{
-		while(nb[i] != '\0' || base[j] != '\0')
-		{
-			if(nb[i] == base[j])
+        {
+                while((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+                        i++;
+                while(str[i] == '+' || str[i] == '-')
+                {
+                        if(str[i] == '-')
+                                sign *= -1;
+                        i++;
+                }
+                while(str[i] != '\0')
+                {
+                        j = 0;
+                        while(base[j] != '\0')
+                        {
+                                if(str[i] == base[j])
+                                {
+                                        result = (result * len) + j;
+					found = 0;
+                                        break;
+                                }
+				else
+					found++;
+                                j++;
+                        }
+			if(found > 0)
 			{
-				nb[i] = j;
-				j++;
+				result = 0;
+				break;
 			}
+                        i++;
+                }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
+	return (result * sign);
 }
 
 int	main()
 {
-	char str = " -1A34";
-	char base = "0123456789ABCEF";
-
+	char str[] = " -1A3s4";
+	char base[] = "0123456789ABCDEF";
 	printf("%d", ft_atoi_base(str, base));
 }
-
