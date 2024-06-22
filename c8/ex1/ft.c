@@ -1,20 +1,22 @@
-#include <stdbool.h>
-#include <stdio.h>
+#include "ft_boolean.h"
 
-typedef struct t_bool{
-
-bool	even(int nbr)
+void	ft_putstr(char *str)
 {
-	if(nbr % 2 == 0)
-		return true;
-	else
-		return false;
+	while (*str)
+		write(1, str++, 1);
 }
 
-int	main()
+t_bool	ft_is_even(int nbr)
 {
-	if(even(16) == true)
-		printf("okay");
+	return ((EVEN(nbr)) ? TRUE : FALSE);
+}
+
+int	main(int argc, char **argv)
+{
+	(void)argv;
+	if (ft_is_even(argc - 1) == TRUE)
+		ft_putstr(EVEN_MSG);
 	else
-		printf("hmmm");
+		ft_putstr(ODD_MSG);
+	return (SUCCESS);
 }
